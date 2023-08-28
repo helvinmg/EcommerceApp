@@ -1,0 +1,29 @@
+{% extends 'parent.html' %}
+{% block 'childbody' %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-2"></div>
+    <ul class="list-group col-md-6">
+        <li class="list-group-item"><b>Course Id:</b> {{object.id}}</li>
+        <li class="list-group-item"><b>Course Name:</b> {{object.cname}}</li>
+        <li class="list-group-item"><b>Course Description:</b> {{object.cdescription}}</li>
+        <li class="list-group-item"><b>Course Creator:</b> {{object.creator}}</li>
+        <li class="list-group-item"><b>Course Language:</b> {{object.clang}}</li>
+        <li class="list-group-item"><b>Course price:</b> {{object.cprice}}</li>
+        <li class="list-group-item">
+          <a href="/addtocart/{{object.id}}" class="btn btn-warning">Add to Cart <i class="fa-solid fa-cart-plus"></i></a> 
+          {% if messages %}
+          {% for msg in messages %}
+          <span class="alert alert-warning" style="margin-left: 30%">{{msg}}</span>
+          {% endfor %}
+          {% endif %}
+        </li>
+      </ul>
+     
+      <div class="col-md-2">
+        <img src="/media/{{object.cimage}}" style="width:400px; height:400px;">
+    </div>
+    </div>
+    
+</div>
+{% endblock %}

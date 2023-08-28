@@ -1,0 +1,27 @@
+{% extends 'parent.html' %}
+{% block 'childbody' %}
+<div class="container">
+  <div class="row"> <div class="col-md-11"></div><div class="col-md-1"><a href="{%url 'logout' %}" class="btn btn-primary">Logout</a></div></div>
+<div class="row">
+{% for course in object_list %}
+<div class="col-md 3">
+<div class="card text-center">
+  <div class="card-header text-white bg-primary">
+    {{course.id}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{course.cname}}</h5>
+    <p class="card-text">By {{course.creator}}</p>
+    <img src="/media/{{course.cimage}}" style="width:100px; height:100px">
+  </div>
+  <div class="card-footer text-danger">
+    Rs.{{course.cprice}}
+  </div>
+  <a href="/details/{{course.id}}" class="btn btn-primary">View Details</a> <br>
+  <a href="/buynow/{{course.id}}" class="btn btn-primary">Buy Now</a>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

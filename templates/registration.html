@@ -1,0 +1,18 @@
+{% extends 'parent.html' %}
+{% block 'childbody' %}
+<form action="{% url 'registration' %}" method="post" style="margin-left: 30%">
+    {% csrf_token %}
+    {% for i in form %}
+    {{i.label_tag}}<br>
+    {{i}}<br>
+    {{i.error}}
+    {% endfor %}
+    <!-- {{form.as_table}} -->
+    <input type="submit">
+    </form>
+{% if messages %}
+{% for msg in messages %}
+<div class="col-md-6 alert alert-danger" style="margin-left: 30%">{{msg}}</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

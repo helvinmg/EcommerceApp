@@ -1,0 +1,24 @@
+{% extends 'parent.html' %}
+{% load static %}
+{% block 'childbody' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body>
+   
+    <h1> Hi welcome to my home page</h1>
+    <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod, animi! Pariatur sapiente quasi consequuntur delectus aut aliquid placeat laborum ratione quod molestias in libero deserunt voluptatibus voluptate, eaque, eius culpa.</p>
+    <ol>
+        <li> Hi</li>
+        <li> Hello </li>
+        <li> all </li>
+    </ol>
+</body>
+</html>
+{% endblock %}
