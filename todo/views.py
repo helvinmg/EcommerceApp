@@ -1,4 +1,3 @@
-#created by helvin
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
@@ -6,7 +5,7 @@ from django.views.generic import View,ListView,DetailView
 from django.contrib.auth.views import LoginView,LogoutView
 from todo.forms import RegistraionForm
 from django.shortcuts import redirect, render
-from todo.models import Course,Cart,Orders
+from todo.models import Course,Cart,MyOrders
 from django.contrib import messages
 from todo.signals import user_registered
 from django.contrib.auth.models import User
@@ -106,25 +105,22 @@ def updatequantity(request,cid):
 
 def checkout(request):
     amt=request.GET["total"]
-    print(amt)
     user=request.user
-    #course=Cart.objects.filter(user=user)
-    obj=Orders(user=user,amount=amt)
-    #session set
+    orders=MyOrders.objects.filter(user=user,status="failed")
+    orders.delete()
+    obj=MyOrders(user=user,amount=amt,ordername="order"+str(amt))
     obj.save()
     return redirect("/paypal")
 
 def paypalpage(request):
-    #order_id = request.session.get('order_id')
     user=request.user
-    order=Orders.objects.get(user=user)
+    order=MyOrders.objects.get(user=user,status="failed")
     host = request.get_host()
     paypal_dict = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
         'amount': order.amount,
         'item_name': 'Order {}'.format(order.id),
         'invoice': str(order.id),
-        'currency_code': 'INR',
         'notify_url': 'http://{}{}'.format(host,
                                            reverse('paypal-ipn')),
         'return_url': 'http://{}{}'.format(host,
@@ -138,6 +134,11 @@ def paypalpage(request):
 
 @csrf_exempt
 def payment_done(request):
+    user=request.user
+    cart=Cart.objects.filter(user=user)
+    cart.delete()
+    order=MyOrders.objects.filter(user=user)
+    order.update(status="success")
     return render(request, 'payment_done.html')
 
 
@@ -145,5 +146,9 @@ def payment_done(request):
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')
 
+def orderview(request):
+    user=request.user
+    orders=MyOrders.objects.filter(user=user,status="success")
+    return render(request,"successorders.html",{'orders':orders})
 
     

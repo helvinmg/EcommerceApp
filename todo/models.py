@@ -18,7 +18,9 @@ class Cart(models.Model):
     course=models.ForeignKey(Course,on_delete=models.CASCADE)
     quantity=models.IntegerField()
 
-class Orders(models.Model):
+class MyOrders(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    #item=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    ordername=models.CharField(max_length=35,default="NA")
+    #orderdate=models.DateField(null=True)
     amount=models.IntegerField()
+    status=models.CharField(max_length=35,default="Failed")

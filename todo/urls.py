@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from todo.views import RegistrationView,MyLoginView,DashboardView,MyLogoutView,myview,CourseDetail,addtocart,mycart,buynow,deletefromcart,updatequantity,checkout,paypalpage,payment_canceled,payment_done,searchcourse
+from todo.views import RegistrationView,MyLoginView,DashboardView,MyLogoutView,myview,CourseDetail,addtocart,mycart,buynow,deletefromcart,updatequantity,checkout,paypalpage,payment_canceled,payment_done,searchcourse,orderview
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -21,7 +21,8 @@ urlpatterns = [
     path('checkout/',checkout,name="checkout"),
     path('paypal/',paypalpage,name='paypal'),
      path('payment-done/', payment_done, name='payment_done'),
-    path('payment-cancelled/', payment_canceled, name='payment_cancelled')
+    path('payment-cancelled/', payment_canceled, name='payment_cancelled'),
+    path('orders',orderview,name="orders")
 ]
 
 if settings.DEBUG:

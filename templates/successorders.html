@@ -1,0 +1,10 @@
+{% extends 'parent.html' %}
+{% load static %}
+{% block 'childbody' %}
+{% for i in orders %}
+{{i.id}}
+{{i.ordername}}
+{{i.amount}}
+{{i.status}}
+{% endfor %}
+{% endblock %}
